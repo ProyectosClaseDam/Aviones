@@ -16,9 +16,14 @@ public class GestionVuelos
 		listaVuelosN=new ArrayList();
 	}
 	
-	public void añadirVuelo(ArrayList<Vuelos> lista, Vuelos nuevoVuelo)
+	public void añadirVueloN(Vuelos nuevoVuelo)
 	{
-		lista.add(nuevoVuelo);
+		listaVuelosN.add((VuelosNacionales) nuevoVuelo);
+	}
+	
+	public void añadirVueloI(Vuelos nuevoVuelo)
+	{
+		listaVuelosI.add((VuelosInternacionales) nuevoVuelo);
 	}
 	
 	public VuelosInternacionales crearVueloI()
@@ -64,10 +69,10 @@ public class GestionVuelos
 		int dia, mes, duracionHoras, duracionMinutos, horaSalida, asientosLibres, minSalida, cod, tarifa;
 		VuelosNacionales nuevo;
 		
-		System.out.println("Desde donde es el vuelo: ");
-		origen=scan.next();
-		System.out.println("Cual es el destino del vuelo: ");
-		destino=scan.next();
+		System.out.println("Desde donde es el vuelo: \n");
+		origen=scan.nextLine();
+		System.out.println("Cual es el destino del vuelo: \n");
+		destino=scan.nextLine();
 		System.out.println("Dia del vuelo (formato dd/mm): ");
 		cambiarDh=scan.next();
 		char[] numeros = cambiarDh.toCharArray();
@@ -95,32 +100,77 @@ public class GestionVuelos
 		return nuevo;
 	}
  
-	public void verVuelos(ArrayList<Vuelos> lista)
+	public void verVuelosN(ArrayList<VuelosNacionales> lista)
 	{
-		System.out.println(lista);
+		VuelosNacionales vuelos;
+		Iterator<VuelosNacionales> iterator = lista.iterator();
+		
+		System.out.println("Origen:			Destino:		Fecha:		Hora:		Duracion:		Cod:		");
+		while(iterator.hasNext())
+		{
+			vuelos=iterator.next();
+			System.out.println(vuelos.getOrigen() + "			" + vuelos.getDestino() + "			" + vuelos.getDia() + "/" + vuelos.getMes() + 
+				"			" + vuelos.getHoraSalida() + ":" + vuelos.getMinSalida() + "			" + vuelos.getDuracionHoras() + ":" + 
+					vuelos.getDuracionMinutos() + "			 " + vuelos.getCod());
+		}
+	}
+	
+	public void verVuelosI(ArrayList<VuelosInternacionales> lista)
+	{
+		VuelosInternacionales vuelos;
+		Iterator<VuelosInternacionales> iterator = lista.iterator();
+		
+		System.out.println("Origen:			Destino:		Fecha:		Hora:		Duracion:		Cod:		");
+		while(iterator.hasNext())
+		{
+			vuelos=iterator.next();
+			System.out.println(vuelos.getOrigen() + "			" + vuelos.getDestino() + "			" + vuelos.getDia() + "/" + vuelos.getMes() + 
+				"			" + vuelos.getHoraSalida() + ":" + vuelos.getMinSalida() + "			" + vuelos.getDuracionHoras() + ":" + 
+					vuelos.getDuracionMinutos() + "			 " + vuelos.getCod());
+		}
 	}
 
-	public void eliminarVuelo(ArrayList<Vuelos> lista, int cod)
+	public void eliminarVueloN(ArrayList<VuelosNacionales> lista, int cod)
 	{
-		Vuelos vuelo;
+		VuelosNacionales vuelos;
+		Iterator<VuelosNacionales> iterator = lista.iterator();
 		boolean encontrado=false;
-		int pos;
-		Iterator<Vuelos> iterator = lista.iterator();
 		
 		while(iterator.hasNext()&&!encontrado)
 		{
-			vuelo=iterator.next();
-			if (vuelo.getCod()==cod)
+			vuelos=iterator.next();
+			if (vuelos.getCod()==cod)
 			{
 				encontrado=true;
-				iterator.remove();
+				lista.remove(lista.indexOf(vuelos));
 			}
 		}
-	
-		if (!encontrado)
+		
+		if(!encontrado)
 		{
-			System.out.println("No existe ningun vuelo de este tipo con el codigo " + cod);
+			System.out.println("No se ha encontrado ningun vuelo existente con el codigo " + cod);
 		}
 	}
 
+	public void eliminarVueloI(ArrayList<VuelosInternacionales> lista, int cod)
+	{
+		VuelosInternacionales vuelos;
+		Iterator<VuelosInternacionales> iterator = lista.iterator();
+		boolean encontrado=false;
+		
+		while(iterator.hasNext()&&!encontrado)
+		{
+			vuelos=iterator.next();
+			if (vuelos.getCod()==cod)
+			{
+				encontrado=true;
+				lista.remove(lista.indexOf(vuelos));
+			}
+		}
+		
+		if(!encontrado)
+		{
+			System.out.println("No se ha encontrado ningun vuelo existente con el codigo " + cod);
+		}
+	}
 }

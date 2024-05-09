@@ -43,14 +43,14 @@ public class Reserva
 		this.numAsiento = numAsiento;
 	}
 	
-	public void cambiarAsiento(Reserva reserva)
+	/*public void cambiarAsiento(Reserva reserva)
 	{
 		String claseNueva;
 		String nuevoAsiento;
 		System.out.println("Nuevo tipo de clase: ");
 		
 		
-	}
+	}*/
 	
 	
 }
